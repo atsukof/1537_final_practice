@@ -169,7 +169,9 @@ const setup = () => {
     // add event listener when clicking on a food item
 
     // この関数の呼び方はなに？
-    $("#foodList").on("click", "li", function() {
+    $("#foodList").on("click", "a", function () {
+        $('#foodList').children().removeClass('active');
+        $(this).addClass('active');
         const food = $(this).text();
         console.log(food);
         // clear the list of unicorns
@@ -183,7 +185,10 @@ const setup = () => {
         displayUnicorns(filteredUnicorns);
     });
 
-    $("#unicorns").on("click", "li", function() {
+    $("#unicorns").on("click", "a", function () {
+        $('#unicorns').children().removeClass('active');
+        $(this).addClass('active');
+        
         // get the details of the unicorn
         const unicornName = $(this).text();
         getUnicornDetails(unicornName);
@@ -199,13 +204,20 @@ function getFoodList(unicorns) {
 
 function displayFoodList(foodList) {
     foodList.forEach(food => {
-        $("#foodList").append(`<li>${food}</li>`);
-          });
+        $("#foodList").append(
+            `<a href="#" id=${food}>
+            <li>${food}</li></a>`
+        );
+    });
 }
 
 function displayUnicorns(unicorns) {
     unicorns.forEach(unicorn =>
-        $("#unicorns").append(`<li>${unicorn.name}</li>`)
+        $("#unicorns").append(`
+        <a href="#" id=${unicorn.name}>
+        <li>${unicorn.name}</li>
+        </a>
+        `)
     );
 }
 
@@ -221,9 +233,9 @@ function getUnicornDetails(unicornName) {
         $("#unicornDetails").append(`<p>Weight: ${unicornWeight}</p>`);
         $("#unicornDetails").append(`<p>Loves:</p>`);
         let unicornLoves = unicorn.loves;
-        unicornLoves.forEach(love => 
+        unicornLoves.forEach(love =>
             $("#unicornDetails").append(`<li>${love}</li>`)
-            )
+        )
     });
 }
 
