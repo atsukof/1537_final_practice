@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- import jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="jquery.js"></script> -->
+    <style>
+        .selectedFruit {
+            color: red;
+            font-size: 50px;
+        }
+
+        .animalList li {
+            display: block;
+            list-style-type: square;
+            /* または他の値 */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Fruit List</h1>
+    <ul class="fruitList">
+        <li>apple
+            <ul>
+                <li>red</li>
+                <li>green</li>
+                <li>yellow</li>
+            </ul>
+        </li>
+        <li>banana</li>
+        <li>kiwi</li>
+        <li>tomato</li>
+        <li>papaya</li>
+    </ul>
+
+    <h1>You clicked</h1>
+    <div id="result"></div>
+
+
+    <h1>Animal List</h1>
+    <ul class="animalList">
+        <li>panda</li>
+        <li>dog</li>
+        <li>cat</li>
+        <li>fish</li>
+    </ul>
+
+    <div id="resultAnimal"></div>
+
+    <button id="resetButton">Reset</button>
+
+    <script src="vanilla.js"></script>
+</body>
+
+</html>

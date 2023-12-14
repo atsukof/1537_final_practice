@@ -164,62 +164,59 @@ const foodList = new Set();
 
 const setup = () => {
     console.log("Hello World!");
-    getFoodList(unicorns);
-    displayFoodList(foodList);
-    // add event listener when clicking on a food item
-
-    // この関数の呼び方はなに？
-    $("#foodList").on("click", "a", function () {
-        $('#foodList').children().removeClass('active');
-        $(this).addClass('active');
-        const food = $(this).text();
-        console.log(food);
-        // clear the list of unicorns
-        $("#unicorns").empty();
-        // filter the unicorns that love the selected food
-        // filter関数の使い方を復習する. include以外に何がある？
-        filteredUnicorns = unicorns.filter(unicorn => unicorn.loves.includes(food));
-
-        // display the filtered unicorns
-        // 関数の呼び方はこれで良いのか？
-        displayUnicorns(filteredUnicorns);
-    });
-
-    $("#unicorns").on("click", "a", function () {
-        $('#unicorns').children().removeClass('active');
-        $(this).addClass('active');
-        
-        // get the details of the unicorn
-        const unicornName = $(this).text();
-        getUnicornDetails(unicornName);
-    });
-}
-function getFoodList(unicorns) {
+    // getFoodList(unicorns);
+    // displayFoodList(foodList);
     unicorns.forEach(unicorn => {
         unicorn.loves.forEach(food => {
             foodList.add(food);
         });
     });
-}
-
-function displayFoodList(foodList) {
     foodList.forEach(food => {
         $("#foodList").append(
             `<a href="#" id=${food}>
             <li>${food}</li></a>`
         );
     });
+    // add event listener when clicking on a food item
+
+    // この関数の呼び方
+    // $(ancestorElement).on("click", "childElement", myFunction);
+    // ancestorElement の子孫要素で childElement がクリックされたときに myFunction を実行します。
+    // これは、動的に追加された要素にもイベントハンドラを適用するのに便利です。
+
+
+    $("#foodList").on("click", "a", function () {
+        // remove the active class from all food items
+        $('#foodList').children().removeClass('active');
+        $(this).addClass('active');
+
+        // clear the list of unicorns
+        $("#unicorns").empty();
+
+        const food = $(this).attr('id');
+        filteredUnicorns = unicorns.forEach(unicorn => {
+            if (unicorn.loves.includes(food)) {
+                return unicorn;
+            }
+            $("#unicorns").append(`
+            <a href="#" id=${unicorn.name}>
+            <li>${unicorn.name}</li>
+            </a>
+            `)
+        });
+    });
+
+    $("#unicorns").on("click", "a", function () {
+        $('#unicorns').children().removeClass('active');
+        $(this).addClass('active');
+
+        // get the details of the unicorn
+        const unicornName = $(this).attr('id');
+        console.log(unicornName);
+        getUnicornDetails(unicornName);
+    });
 }
 
-function displayUnicorns(unicorns) {
-    unicorns.forEach(unicorn =>
-        $("#unicorns").append(`
-        <a href="#" id=${unicorn.name}>
-        <li>${unicorn.name}</li>
-        </a>
-        `)
-    );
-}
 
 function getUnicornDetails(unicornName) {
     $("#unicornDetails").empty();
